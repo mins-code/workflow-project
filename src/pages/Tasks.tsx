@@ -26,7 +26,7 @@ export default function Tasks() {
   const updateStatus = useMutation(api.tasks.updateStatus);
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<string>("");
+  const [selectedProject, setSelectedProject] = useState<string>("all");
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -106,7 +106,7 @@ export default function Tasks() {
     }
   };
 
-  const filteredTasks = selectedProject
+  const filteredTasks = selectedProject && selectedProject !== "all"
     ? tasks?.filter(task => task.projectId === selectedProject)
     : tasks;
 
@@ -203,7 +203,7 @@ export default function Tasks() {
                 <SelectValue placeholder="All Projects" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Projects</SelectItem>
+                <SelectItem value="all">All Projects</SelectItem>
                 {projects?.map((project) => (
                   <SelectItem key={project._id} value={project._id}>
                     {project.name}
