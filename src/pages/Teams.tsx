@@ -66,8 +66,9 @@ export default function Teams() {
         leadId: "",
       });
     } catch (error) {
-      toast.error("Failed to create team");
-      console.error(error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to create team";
+      toast.error(errorMessage);
+      console.error("Team creation error:", error);
     }
   };
 
