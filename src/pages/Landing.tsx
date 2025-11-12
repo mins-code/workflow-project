@@ -40,6 +40,13 @@ export default function Landing() {
     },
   ];
 
+  const handleLearnMore = () => {
+    const featuresSection = document.querySelector('#features-section');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen cyber-grid scanline">
       <Navbar />
@@ -91,7 +98,7 @@ export default function Landing() {
             <Button
               size="lg"
               onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
-              className="bg-primary/80 text-primary-foreground hover:bg-primary/70 text-lg px-8"
+              className="bg-primary/80 text-primary-foreground hover:bg-primary/70 hover:scale-105 transition-all text-lg px-8"
             >
               {isAuthenticated ? "Go to Dashboard" : "Get Started"}
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -100,7 +107,8 @@ export default function Landing() {
             <Button
               size="lg"
               variant="outline"
-              className="border-primary/50 bg-card/80 hover:bg-card/60 text-lg px-8"
+              onClick={handleLearnMore}
+              className="border-primary/50 bg-card/80 hover:bg-card/60 hover:scale-105 transition-all text-lg px-8"
             >
               <Sparkles className="mr-2 h-5 w-5" />
               Learn More
@@ -110,7 +118,7 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="container mx-auto px-4 py-20 max-w-6xl">
+      <section id="features-section" className="container mx-auto px-4 py-20 max-w-6xl">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -198,7 +206,7 @@ export default function Landing() {
           <Button
             size="lg"
             onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
-            className="bg-primary/80 text-primary-foreground hover:bg-primary/70 text-lg px-8"
+            className="bg-primary/80 text-primary-foreground hover:bg-primary/70 hover:scale-105 transition-all text-lg px-8"
           >
             {isAuthenticated ? "Go to Dashboard" : "Start Free Trial"}
             <ArrowRight className="ml-2 h-5 w-5" />
