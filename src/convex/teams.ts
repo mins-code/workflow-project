@@ -7,17 +7,37 @@ export const create = mutation({
     name: v.string(),
     description: v.optional(v.string()),
     department: v.string(),
-    leadId: v.id("users"),
+    leadName: v.string(),
+    leadEmail: v.string(),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (!userId) throw new Error("Not authenticated");
 
+    // Check if user with this email already exists
+    const existingUser = await ctx.db
+      .query("users")
+      .withIndex("email", (q) => q.eq("email", args.leadEmail))
+      .first();
+
+    let leadId;
+    if (existingUser) {
+      leadId = existingUser._id;
+    } else {
+      // Create new user for the team lead
+      leadId = await ctx.db.insert("users", {
+        name: args.leadName,
+        email: args.leadEmail,
+        role: "manager",
+        department: args.department,
+      });
+    }
+
     const teamId = await ctx.db.insert("teams", {
       name: args.name,
       description: args.description,
       department: args.department,
-      leadId: args.leadId,
+      leadId: leadId,
       isActive: true,
     });
 

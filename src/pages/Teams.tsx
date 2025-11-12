@@ -25,7 +25,8 @@ export default function Teams() {
     name: "",
     description: "",
     department: "",
-    leadId: "",
+    leadName: "",
+    leadEmail: "",
   });
 
   useEffect(() => {
@@ -45,8 +46,8 @@ export default function Teams() {
   const handleCreateTeam = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.leadId) {
-      toast.error("Please provide a team lead ID");
+    if (!formData.leadName || !formData.leadEmail) {
+      toast.error("Please provide team lead name and email");
       return;
     }
     
@@ -55,7 +56,8 @@ export default function Teams() {
         name: formData.name,
         description: formData.description,
         department: formData.department,
-        leadId: formData.leadId as Id<"users">,
+        leadName: formData.leadName,
+        leadEmail: formData.leadEmail,
       });
       toast.success("Team created successfully!");
       setIsDialogOpen(false);
@@ -63,10 +65,11 @@ export default function Teams() {
         name: "",
         description: "",
         department: "",
-        leadId: "",
+        leadName: "",
+        leadEmail: "",
       });
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to create team. Please ensure the Team Lead ID is a valid user ID from the database.";
+      const errorMessage = error instanceof Error ? error.message : "Failed to create team. Please try again.";
       toast.error(errorMessage);
       console.error("Team creation error:", error);
     }
@@ -132,11 +135,22 @@ export default function Teams() {
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium">Team Lead ID</label>
+                  <label className="text-sm font-medium">Team Lead Name</label>
                   <Input
-                    value={formData.leadId}
-                    onChange={(e) => setFormData({ ...formData, leadId: e.target.value })}
-                    placeholder="Lead user ID"
+                    value={formData.leadName}
+                    onChange={(e) => setFormData({ ...formData, leadName: e.target.value })}
+                    placeholder="Enter team lead name"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium">Team Lead Email</label>
+                  <Input
+                    type="email"
+                    value={formData.leadEmail}
+                    onChange={(e) => setFormData({ ...formData, leadEmail: e.target.value })}
+                    placeholder="Enter team lead email"
                     required
                   />
                 </div>
