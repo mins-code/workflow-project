@@ -58,7 +58,7 @@ export default function Landing() {
             transition={{ delay: 0.2, type: "spring" }}
             className="inline-block mb-6"
           >
-            <div className="text-6xl md:text-8xl font-bold cyber-text text-primary glitch" data-text="ProDeX">
+            <div className="text-6xl md:text-8xl font-bold text-primary" data-text="ProDeX">
               ProDeX
             </div>
           </motion.div>
@@ -91,7 +91,7 @@ export default function Landing() {
             <Button
               size="lg"
               onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 cyber-glow text-lg px-8"
+              className="bg-primary/80 text-primary-foreground hover:bg-primary/70 text-lg px-8"
             >
               {isAuthenticated ? "Go to Dashboard" : "Get Started"}
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -100,7 +100,7 @@ export default function Landing() {
             <Button
               size="lg"
               variant="outline"
-              className="border-primary/50 hover:bg-primary/10 text-lg px-8"
+              className="border-primary/50 bg-card/80 hover:bg-card/60 text-lg px-8"
             >
               <Sparkles className="mr-2 h-5 w-5" />
               Learn More
@@ -198,7 +198,7 @@ export default function Landing() {
           <Button
             size="lg"
             onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 cyber-glow text-lg px-8"
+            className="bg-primary/80 text-primary-foreground hover:bg-primary/70 text-lg px-8"
           >
             {isAuthenticated ? "Go to Dashboard" : "Start Free Trial"}
             <ArrowRight className="ml-2 h-5 w-5" />
