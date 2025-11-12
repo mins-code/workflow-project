@@ -90,10 +90,6 @@ export default function Projects() {
   };
 
   const handleDeleteProject = async (projectId: Id<"projects">) => {
-    if (!confirm("Are you sure you want to delete this project? This will also delete all associated tasks. This action cannot be undone.")) {
-      return;
-    }
-    
     try {
       await deleteProject({ projectId });
       toast.success("Project deleted successfully!");

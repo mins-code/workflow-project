@@ -77,10 +77,6 @@ export default function Teams() {
   };
 
   const handleDeleteTeam = async (teamId: Id<"teams">) => {
-    if (!confirm("Are you sure you want to delete this team? This action cannot be undone.")) {
-      return;
-    }
-    
     try {
       await deleteTeam({ teamId });
       toast.success("Team deleted successfully!");
