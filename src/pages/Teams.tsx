@@ -195,8 +195,12 @@ export default function Teams() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => handleDeleteTeam(team._id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteTeam(team._id);
+                      }}
                       className="ml-auto h-8 w-8 p-0 hover:bg-destructive/20 hover:text-destructive"
+                      title="Delete Team"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
