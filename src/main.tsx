@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard.tsx";
 import Projects from "./pages/Projects.tsx";
 import Teams from "./pages/Teams.tsx";
 import Tasks from "./pages/Tasks.tsx";
+import Profile from "./pages/Profile.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import "./types/global.d.ts";
 
@@ -55,6 +56,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="/projects" element={<Projects />} />
             <Route path="/teams" element={<Teams />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
