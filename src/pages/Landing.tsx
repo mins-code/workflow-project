@@ -98,7 +98,7 @@ export default function Landing() {
             <Button
               size="lg"
               onClick={() => navigate(isAuthenticated ? "/dashboard" : "/auth")}
-              className="bg-primary/80 text-primary-foreground hover:bg-primary/70 hover:scale-105 transition-all text-lg px-8"
+              className="bg-primary/80 text-primary-foreground hover:bg-primary/90 hover:scale-105 transition-all text-lg px-8"
             >
               {isAuthenticated ? "Go to Dashboard" : "Get Started"}
               <ArrowRight className="ml-2 h-5 w-5" />

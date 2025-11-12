@@ -45,6 +45,29 @@ export const create = mutation({
   },
 });
 
+export const deleteTeam = mutation({
+  args: {
+    teamId: v.id("teams"),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) throw new Error("Not authenticated");
+
+    // Delete all team members first
+    const members = await ctx.db
+      .query("teamMembers")
+      .withIndex("by_team", (q) => q.eq("teamId", args.teamId))
+      .collect();
+    
+    for (const member of members) {
+      await ctx.db.delete(member._id);
+    }
+
+    // Delete the team
+    await ctx.db.delete(args.teamId);
+  },
+});
+
 export const list = query({
   args: {},
   handler: async (ctx) => {

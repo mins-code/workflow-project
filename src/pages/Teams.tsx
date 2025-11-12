@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Loader2, Plus, Users, UserCheck, Briefcase } from "lucide-react";
+import { Loader2, Plus, Users, UserCheck, Briefcase, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import AppLayout from "@/components/AppLayout";
 import { Id } from "@/convex/_generated/dataModel";
@@ -19,6 +19,7 @@ export default function Teams() {
   const navigate = useNavigate();
   const teams = useQuery(api.teams.list);
   const createTeam = useMutation(api.teams.create);
+  const deleteTeam = useMutation(api.teams.deleteTeam);
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -72,6 +73,21 @@ export default function Teams() {
       const errorMessage = error instanceof Error ? error.message : "Failed to create team. Please try again.";
       toast.error(errorMessage);
       console.error("Team creation error:", error);
+    }
+  };
+
+  const handleDeleteTeam = async (teamId: Id<"teams">) => {
+    if (!confirm("Are you sure you want to delete this team? This action cannot be undone.")) {
+      return;
+    }
+    
+    try {
+      await deleteTeam({ teamId });
+      toast.success("Team deleted successfully!");
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to delete team. Please try again.";
+      toast.error(errorMessage);
+      console.error("Team deletion error:", error);
     }
   };
 
@@ -176,6 +192,14 @@ export default function Teams() {
                   <div className="flex items-center gap-2">
                     <Users className="h-5 w-5 text-primary" />
                     <CardTitle className="text-lg">{team.name}</CardTitle>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDeleteTeam(team._id)}
+                      className="ml-auto h-8 w-8 p-0 hover:bg-destructive/20 hover:text-destructive"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
