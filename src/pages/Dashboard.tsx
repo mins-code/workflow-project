@@ -53,14 +53,14 @@ export default function Dashboard() {
           </motion.div>
 
           {stats && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 auto-rows-fr">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1 }}
               >
-                <Card className="border-primary/50 cyber-glow bg-card/50 backdrop-blur">
-                  <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <Card className="border-primary/50 cyber-glow bg-card/50 backdrop-blur h-full">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
                     <CardTitle className="text-sm font-medium">Active Projects</CardTitle>
                     <FolderKanban className="h-4 w-4 text-primary" />
                   </CardHeader>
@@ -80,8 +80,8 @@ export default function Dashboard() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
               >
-                <Card className="border-accent/50 cyber-glow bg-card/50 backdrop-blur">
-                  <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <Card className="border-accent/50 cyber-glow bg-card/50 backdrop-blur h-full">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
                     <CardTitle className="text-sm font-medium">Tasks Completed</CardTitle>
                     <CheckSquare className="h-4 w-4 text-accent" />
                   </CardHeader>
@@ -101,8 +101,8 @@ export default function Dashboard() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <Card className="border-secondary/50 cyber-glow bg-card/50 backdrop-blur">
-                  <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <Card className="border-secondary/50 cyber-glow bg-card/50 backdrop-blur h-full">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
                     <CardTitle className="text-sm font-medium">In Progress</CardTitle>
                     <Activity className="h-4 w-4 text-secondary" />
                   </CardHeader>
@@ -122,8 +122,8 @@ export default function Dashboard() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                <Card className="border-destructive/50 cyber-glow bg-card/50 backdrop-blur">
-                  <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <Card className="border-destructive/50 cyber-glow bg-card/50 backdrop-blur h-full">
+                  <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
                     <CardTitle className="text-sm font-medium">Overdue</CardTitle>
                     <AlertCircle className="h-4 w-4 text-destructive" />
                   </CardHeader>

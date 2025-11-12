@@ -51,6 +51,12 @@ export default function Projects() {
 
   const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.managerId || !formData.teamId) {
+      toast.error("Please provide both manager ID and team ID");
+      return;
+    }
+    
     try {
       await createProject({
         name: formData.name,

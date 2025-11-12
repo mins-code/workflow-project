@@ -44,6 +44,12 @@ export default function Teams() {
 
   const handleCreateTeam = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.leadId) {
+      toast.error("Please provide a team lead ID");
+      return;
+    }
+    
     try {
       await createTeam({
         name: formData.name,
