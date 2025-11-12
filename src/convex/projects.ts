@@ -116,3 +116,26 @@ export const updateProgress = mutation({
     });
   },
 });
+
+export const deleteProject = mutation({
+  args: {
+    projectId: v.id("projects"),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) throw new Error("Not authenticated");
+
+    // Delete all tasks associated with this project first
+    const tasks = await ctx.db
+      .query("tasks")
+      .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+      .collect();
+    
+    for (const task of tasks) {
+      await ctx.db.delete(task._id);
+    }
+
+    // Delete the project
+    await ctx.db.delete(args.projectId);
+  },
+});

@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Loader2, Plus, FolderKanban, Calendar, Users, Target, TrendingUp } from "lucide-react";
+import { Loader2, Plus, FolderKanban, Calendar, Users, Target, TrendingUp, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import AppLayout from "@/components/AppLayout";
 import { Id } from "@/convex/_generated/dataModel";
@@ -23,6 +23,7 @@ export default function Projects() {
   const teams = useQuery(api.teams.list);
   const users = useQuery(api.users.currentUser);
   const createProject = useMutation(api.projects.create);
+  const deleteProject = useMutation(api.projects.deleteProject);
   
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -85,6 +86,21 @@ export default function Projects() {
       const errorMessage = error instanceof Error ? error.message : "Failed to create project. Please try again.";
       toast.error(errorMessage);
       console.error("Project creation error:", error);
+    }
+  };
+
+  const handleDeleteProject = async (projectId: Id<"projects">) => {
+    if (!confirm("Are you sure you want to delete this project? This will also delete all associated tasks. This action cannot be undone.")) {
+      return;
+    }
+    
+    try {
+      await deleteProject({ projectId });
+      toast.success("Project deleted successfully!");
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to delete project. Please try again.";
+      toast.error(errorMessage);
+      console.error("Project deletion error:", error);
     }
   };
 
@@ -263,9 +279,23 @@ export default function Projects() {
                         <FolderKanban className="h-5 w-5 text-primary" />
                         <CardTitle className="text-lg">{project.name}</CardTitle>
                       </div>
-                      <Badge className={getPriorityColor(project.priority)}>
-                        {project.priority}
-                      </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge className={getPriorityColor(project.priority)}>
+                          {project.priority}
+                        </Badge>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteProject(project._id);
+                          }}
+                          className="ml-auto h-8 w-8 p-0 hover:bg-destructive/20 hover:text-destructive"
+                          title="Delete Project"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
