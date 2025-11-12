@@ -6,6 +6,7 @@ export const create = mutation({
   args: {
     name: v.string(),
     description: v.string(),
+    goal: v.optional(v.string()),
     priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("critical")),
     startDate: v.number(),
     endDate: v.number(),
@@ -40,6 +41,7 @@ export const create = mutation({
     const projectId = await ctx.db.insert("projects", {
       name: args.name,
       description: args.description,
+      goal: args.goal,
       priority: args.priority,
       startDate: args.startDate,
       endDate: args.endDate,

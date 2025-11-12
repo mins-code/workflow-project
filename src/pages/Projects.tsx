@@ -29,6 +29,7 @@ export default function Projects() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    goal: "",
     priority: "medium" as "low" | "medium" | "high" | "critical",
     startDate: "",
     endDate: "",
@@ -63,6 +64,7 @@ export default function Projects() {
       await createProject({
         name: formData.name,
         description: formData.description,
+        goal: formData.goal,
         priority: formData.priority,
         startDate: new Date(formData.startDate).getTime(),
         endDate: new Date(formData.endDate).getTime(),
@@ -75,6 +77,7 @@ export default function Projects() {
       setFormData({
         name: "",
         description: "",
+        goal: "",
         priority: "medium",
         startDate: "",
         endDate: "",
@@ -167,6 +170,15 @@ export default function Projects() {
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       placeholder="Project description"
                       required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium">Project Goal</label>
+                    <Textarea
+                      value={formData.goal}
+                      onChange={(e) => setFormData({ ...formData, goal: e.target.value })}
+                      placeholder="What is the high-level goal or objective?"
                     />
                   </div>
                   

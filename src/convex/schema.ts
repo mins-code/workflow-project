@@ -73,6 +73,7 @@ const schema = defineSchema(
     projects: defineTable({
       name: v.string(),
       description: v.string(),
+      goal: v.optional(v.string()),
       priority: priorityValidator,
       startDate: v.number(),
       endDate: v.number(),
