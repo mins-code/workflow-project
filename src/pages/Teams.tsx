@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Loader2, Plus, Users, UserCheck, Briefcase } from "lucide-react";
 import { toast } from "sonner";
-import Navbar from "@/components/Navbar";
+import AppLayout from "@/components/AppLayout";
 import { Id } from "@/convex/_generated/dataModel";
 
 export default function Teams() {
@@ -66,10 +66,9 @@ export default function Teams() {
   };
 
   return (
-    <div className="min-h-screen cyber-grid scanline">
-      <Navbar />
-      
-      <div className="container mx-auto p-6 max-w-7xl">
+    <AppLayout>
+      <div className="min-h-screen cyber-grid scanline">
+        <div className="container mx-auto p-6 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -189,7 +188,8 @@ export default function Teams() {
             </motion.div>
           ))}
         </div>
+        </div>
       </div>
-    </div>
+    </AppLayout>
   );
 }
