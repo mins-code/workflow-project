@@ -52,7 +52,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <Sidebar className="border-r border-primary/50 bg-background/95 backdrop-blur">
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel className="text-primary text-2xl font-bold px-4 py-6 mb-4">
+            <SidebarGroupLabel className="text-primary text-2xl font-bold px-4 py-6 mb-4 cyber-text">
               ProDeX
             </SidebarGroupLabel>
             <SidebarGroupContent className="mt-4">

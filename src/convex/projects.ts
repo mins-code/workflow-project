@@ -9,15 +9,42 @@ export const create = mutation({
     priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high"), v.literal("critical")),
     startDate: v.number(),
     endDate: v.number(),
-    managerId: v.id("users"),
+    managerName: v.string(),
+    managerEmail: v.string(),
     teamId: v.id("teams"),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (!userId) throw new Error("Not authenticated");
 
+    // Check if user with this email already exists
+    const existingUser = await ctx.db
+      .query("users")
+      .withIndex("email", (q) => q.eq("email", args.managerEmail))
+      .first();
+
+    let managerId;
+    if (existingUser) {
+      managerId = existingUser._id;
+    } else {
+      // Create new user for the project manager
+      const team = await ctx.db.get(args.teamId);
+      managerId = await ctx.db.insert("users", {
+        name: args.managerName,
+        email: args.managerEmail,
+        role: "manager",
+        department: team?.department,
+      });
+    }
+
     const projectId = await ctx.db.insert("projects", {
-      ...args,
+      name: args.name,
+      description: args.description,
+      priority: args.priority,
+      startDate: args.startDate,
+      endDate: args.endDate,
+      managerId: managerId,
+      teamId: args.teamId,
       status: "planning",
       progress: 0,
     });

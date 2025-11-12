@@ -31,7 +31,8 @@ export default function Projects() {
     priority: "medium" as "low" | "medium" | "high" | "critical",
     startDate: "",
     endDate: "",
-    managerId: "",
+    managerName: "",
+    managerEmail: "",
     teamId: "",
   });
 
@@ -52,8 +53,8 @@ export default function Projects() {
   const handleCreateProject = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.managerId || !formData.teamId) {
-      toast.error("Please provide both manager ID and team ID");
+    if (!formData.managerName || !formData.managerEmail || !formData.teamId) {
+      toast.error("Please provide manager name, email, and team");
       return;
     }
     
@@ -64,7 +65,8 @@ export default function Projects() {
         priority: formData.priority,
         startDate: new Date(formData.startDate).getTime(),
         endDate: new Date(formData.endDate).getTime(),
-        managerId: formData.managerId as Id<"users">,
+        managerName: formData.managerName,
+        managerEmail: formData.managerEmail,
         teamId: formData.teamId as Id<"teams">,
       });
       toast.success("Project created successfully!");
@@ -75,12 +77,14 @@ export default function Projects() {
         priority: "medium",
         startDate: "",
         endDate: "",
-        managerId: "",
+        managerName: "",
+        managerEmail: "",
         teamId: "",
       });
     } catch (error) {
-      toast.error("Failed to create project");
-      console.error(error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to create project. Please try again.";
+      toast.error(errorMessage);
+      console.error("Project creation error:", error);
     }
   };
 
@@ -216,11 +220,22 @@ export default function Projects() {
                   </div>
                   
                   <div>
-                    <label className="text-sm font-medium">Project Manager</label>
+                    <label className="text-sm font-medium">Project Manager Name</label>
                     <Input
-                      value={formData.managerId}
-                      onChange={(e) => setFormData({ ...formData, managerId: e.target.value })}
-                      placeholder="Manager ID"
+                      value={formData.managerName}
+                      onChange={(e) => setFormData({ ...formData, managerName: e.target.value })}
+                      placeholder="Enter manager name"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium">Project Manager Email</label>
+                    <Input
+                      type="email"
+                      value={formData.managerEmail}
+                      onChange={(e) => setFormData({ ...formData, managerEmail: e.target.value })}
+                      placeholder="Enter manager email"
                       required
                     />
                   </div>
