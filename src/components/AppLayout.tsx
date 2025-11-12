@@ -48,18 +48,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
   ];
 
   return (
-    <SidebarProvider defaultOpen={false}>
-      <div 
-        className="fixed left-0 top-0 bottom-0 w-4 z-50 hover:w-auto group"
-        onMouseEnter={() => {
-          const sidebar = document.querySelector('[data-state]');
-          if (sidebar) {
-            const button = document.querySelector('[data-sidebar="trigger"]') as HTMLButtonElement;
-            if (button) button.click();
-          }
-        }}
-      >
-        <Sidebar className="border-r border-primary/50 bg-background/95 backdrop-blur">
+    <SidebarProvider defaultOpen={true}>
+      <Sidebar className="border-r border-primary/50 bg-background/95 backdrop-blur">
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel className="text-primary cyber-text text-lg px-4 py-4">
@@ -84,14 +74,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
-      </div>
-      <SidebarInset className="flex flex-col" onMouseEnter={() => {
-        const sidebar = document.querySelector('[data-state="expanded"]');
-        if (sidebar) {
-          const button = document.querySelector('[data-sidebar="trigger"]') as HTMLButtonElement;
-          if (button) button.click();
-        }
-      }}>
+      <SidebarInset className="flex flex-col">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b border-primary/50 bg-background/80 backdrop-blur-lg sticky top-0 z-50">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="cyber-glow" />
