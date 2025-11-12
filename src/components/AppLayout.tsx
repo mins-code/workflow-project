@@ -52,10 +52,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <Sidebar className="border-r border-primary/50 bg-background/95 backdrop-blur">
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel className="text-primary cyber-text text-lg px-4 py-4">
+            <SidebarGroupLabel className="text-primary cyber-text text-2xl font-bold px-4 py-6 mb-4">
               ProDeX
             </SidebarGroupLabel>
-            <SidebarGroupContent>
+            <SidebarGroupContent className="mt-4">
               <SidebarMenu>
                 {menuItems.map((item) => (
                   <SidebarMenuItem key={item.path}>
